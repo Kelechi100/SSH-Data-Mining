@@ -15,16 +15,16 @@ class SpreadSheet:
         if value.startswith("'") and value.endswith("'"):
             return value
         elif value.startswith("="):
-            # Evaluate the expression following '='
             expression = value[1:]
             if expression.isdigit():
-                return expression  # Return the string representation of the digit
+                return expression
             elif expression.startswith("'") and expression.endswith("'"):
-                return expression[1:-1]  # Remove the surrounding quotes
-            return value  # Return the original formula if not a valid expression
+                return expression[1:-1]
+            else:
+                return "#Error"  # Handle invalid formulas
         else:
             try:
                 return int(value)
             except ValueError:
-                return "#Error"
+                return "#Error"  # Handle non-integer and improperly quoted strings
 
