@@ -17,6 +17,8 @@ class SpreadSheet:
         self._evaluating.add(cell)
         try:
             value = self.get(cell)
+            if value.startswith("'") and value.endswith("'"):
+                return value
             try:
                 return int(value)
             except ValueError:
