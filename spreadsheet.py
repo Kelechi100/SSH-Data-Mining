@@ -17,9 +17,11 @@ class SpreadSheet:
         elif value.startswith("="):
             # Evaluate the expression following '='
             expression = value[1:]
-            if expression.startswith("'") and expression.endswith("'"):
+            if expression.isdigit():
+                return expression  # Return the string representation of the digit
+            elif expression.startswith("'") and expression.endswith("'"):
                 return expression[1:-1]  # Remove the surrounding quotes
-            return "#Error"  # If the expression is not a valid string
+            return value  # Return the original formula if not a valid expression
         else:
             try:
                 return int(value)
