@@ -1,3 +1,4 @@
+
 class SpreadSheet:
 
     def __init__(self):
@@ -11,4 +12,15 @@ class SpreadSheet:
         return self._cells.get(cell, '')
 
     def evaluate(self, cell: str) -> int | str:
-        pass
+        if cell in self._evaluating:
+            raise ValueError("Circular dependency detected")
+        self._evaluating.add(cell)
+        try:
+            value = self.get(cell)
+            if value.isdigit():
+                return int(value)
+            else:
+                return value
+        finally:
+            self._evaluating.remove(cell)
+
